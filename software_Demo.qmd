@@ -1,0 +1,228 @@
+---
+title: "<span style='text-transform: none;'>Enhancing Digital Humanities Research in R: Accessing Finnish Cultural Heritage Data with _finna_ and _finto_</span>"
+author: "Akewak Jeba, Julia Matveeva, Leo Lahti"
+format:
+  revealjs:
+    scrollable: true
+    slide-number: true
+    chalkboard: 
+      buttons: false
+    preview-links: auto
+    logo: images/logo2.jpg
+    css: styles.css
+    theme: night
+    navigation-mode: linear
+    auto-animate: true
+    footer: '<a href="https://datascience.utu.fi">https://datascience.utu.fi</a> | <a href="https://www.kansalliskirjasto.fi/en/projects/digital-history-literature-finland">https://www.kansalliskirjasto.fi/en/projects/digital-history-literature-finland</a>'
+execute:
+  echo: true
+  eval: true
+  freeze: auto
+---
+
+# Introduction {auto-animate="true"}
+
+::: {.columns}
+::: {.column width="99%"}
+
+- Cultural heritage data is rich, but underused  
+- Structured metadata reveals cultural trends  
+- R packages *finna* and *finto* bring this data to researchers  
+- Enable metadata search, enrichment, and analysis in R  
+
+:::
+::: {.column width="1%"}  
+:::
+:::
+
+
+# Motivation – Challenges {auto-animate="true"}
+
+::: {.columns}
+::: {.column width="75%"}
+- Cultural metadata is often:  
+  - Scattered across systems  
+  - Lacking semantic structure and conceptual links
+  - Inconsistent and not readily available in R
+
+:::
+::: {.column width="25%"}  
+![](images/picture2.png){width=100% }
+:::
+
+:::
+
+
+
+# Motivation – Opportunities {auto-animate="true"}
+
+::: {.columns}
+::: {.column width="50%"}
+- National services like **Finna** and **Finto** offer:  
+  - 9M+ cultural heritage records  
+  - Vocabularies and AI tools for subject enrichment  
+
+- Our **`finna`** and **`finto`** R packages:  
+  - Bring these services into R  
+  - Enable reproducible, semantically enriched workflows  
+  - Support deeper, structured digital humanities research  
+
+:::
+::: {.column width="50%"}  
+![](images/picture4.png){width=100% }
+:::
+
+:::
+
+
+# What is Finna? {auto-animate="true"}
+
+::: {.columns}
+
+::: {.column width="70%"}
+- National search platform  
+- Covers libraries, museums, archives  
+- Open API for metadata access  
+- Search by keyword, author, subject  
+- Accessed via the *_finna_* R package  
+:::
+
+::: {.column width="30%"}
+![](images/FINNA.png){width=100%}
+:::
+
+:::
+
+
+
+
+# What is Finto? {auto-animate="true"}
+
+::: {.columns}
+::: {.column width="70%"}
+- Vocabulary and ontology service (NLF)  
+- 50+ domain vocabularies  
+- Key vocabularies:  
+  - YSO – General topics  
+  - KAUNO – Fiction  
+  - KANTO – Author names  
+- Finto AI suggests subjects  
+- Accessed via the _finto_ R package
+:::
+
+::: {.column width="30%"}
+![](images/FINTO.png){width=100%}
+:::
+:::
+
+
+# Package Installation {auto-animate="true"}
+
+``` r
+# Install packages (if not already installed)
+# install.packages("devtools")
+devtools::install_github("fennicahub/finna") 
+devtools::install_github("fennicahub/finto")
+install.packages("dplyr")
+install.packages("ggplot2")
+```
+# Load software packages
+``` r
+library(finna)
+library(finto)
+library(dplyr)
+library(ggplot2)
+```
+
+
+# Searching Finna {auto-animate="true"}
+
+``` r
+# Search for items related to "music"
+music_rec <- search_finna("music")
+head(music_rec)
+```
+
+
+# Visualizing Metadata {auto-animate="true"}
+
+``` r
+# Basic plot: number of items by institution
+music_rec %>% 
+  count(Library) %>% 
+  ggplot(aes(x = reorder(Library, n), y = n)) +
+  geom_col() +
+  coord_flip() +
+  labs(title = "Items by Library", x = NULL, y = "Count")
+```
+
+
+# Enriching with KANTO  {auto-animate="true"}
+
+``` r
+data("fennica_subset",package = "finna")
+tail(fennica_subset)
+```
+
+``` r
+# Load a sample dataset
+fennica_subset <- tail(fennica_subset)
+
+# Enrich authors with Kanto info
+authors_kanto <- finto::get_kanto(fennica_subset)
+head(authors_kanto)
+```
+
+
+#  Finto AI for Subject Indexing {auto-animate="true"}
+
+``` r
+# Annotate a short text with YSO concepts
+text <- "climate change and biodiversity loss"
+annif_suggest(text, project = "yso-fi")
+```
+
+``` r
+hierarchy <- get_hierarchy(vocid = "yso", uri = "http://www.yso.fi/onto/yso/p5729", lang = "en")
+print(hierarchy)
+```
+
+#  {auto-animate="true"}
+
+::: {.columns}
+::: {.column width="50%"}
+-   *finna* -- Search and retrieve cultural metadata
+
+-   *finto* -- Add semantic vocabularies and subjects
+
+-   Works fully in R workflows
+
+-   Enables scalable digital humanities research
+
+:::
+::: {.column width="50%"} 
+
+![](images/summary-1.jpg){width=100%}
+
+:::
+:::
+
+# {auto-animate="true"}
+::: {.columns}
+::: {.column width="99%"}
+![](images/question2.jpg){width=100%}
+:::
+::: {.column width="1%"} 
+
+:::
+:::
+
+#  {data-background-color="white"}
+::: {.columns}
+::: {.column width="99%"}
+![](images/logo.png){width=100% height=100% style="object-fit: contain; margin: 0; padding: 0;"}
+:::
+::: {.column width="1%"} 
+
+:::
+:::

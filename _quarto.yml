@@ -1,0 +1,6 @@
+project:
+  title: "software_Demo"
+  type: website
+  output-dir: docs
+  render:
+    - software_demo.qmd
