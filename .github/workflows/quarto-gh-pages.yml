@@ -6,7 +6,6 @@ on:
     - '**.yml'
     - '**.qmd'
     - '**.png'
-    - '**.html'
   workflow_dispatch:
 permissions: write-all
 
