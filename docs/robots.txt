@@ -1,1 +1,0 @@
-Sitemap: https://fennicahub.github.io/DARIAH_software_demo/sitemap.xml

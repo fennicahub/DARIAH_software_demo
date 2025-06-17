@@ -88,7 +88,7 @@ execute:
 :::
 
 ::: {.column width="30%"}
-![](images/FINNA.png){width=100%}
+![](images/finna.png){width=100%}
 :::
 
 :::
@@ -111,7 +111,7 @@ execute:
 :::
 
 ::: {.column width="30%"}
-![](images/FINTO.png){width=100%}
+![](images/finto.png){width=100%}
 :::
 :::
 
@@ -123,11 +123,12 @@ execute:
 # install.packages("devtools")
 devtools::install_github("fennicahub/finna") 
 devtools::install_github("fennicahub/finto")
+options(repos = c(CRAN = "https://cloud.r-project.org"))
 install.packages("dplyr")
 install.packages("ggplot2")
 ```
 # Load software packages
-``` r
+``` {r message = FALSE, warnings = FALSE}
 library(finna)
 library(finto)
 library(dplyr)
@@ -137,7 +138,7 @@ library(ggplot2)
 
 # Searching Finna {auto-animate="true"}
 
-``` r
+``` {r message = FALSE, warnings = FALSE}
 # Search for items related to "music"
 music_rec <- search_finna("music")
 head(music_rec)
@@ -146,7 +147,7 @@ head(music_rec)
 
 # Visualizing Metadata {auto-animate="true"}
 
-``` r
+``` {r message = FALSE, warnings = FALSE}
 # Basic plot: number of items by institution
 music_rec %>% 
   count(Library) %>% 
@@ -159,30 +160,32 @@ music_rec %>%
 
 # Enriching with KANTO  {auto-animate="true"}
 
-``` r
+``` {r message = FALSE, warnings = FALSE}
 data("fennica_subset",package = "finna")
-tail(fennica_subset)
+knitr::kable(tail(fennica_subset))
 ```
 
-``` r
+# Enriching with KANTO  {auto-animate="true"}
+``` {r message = FALSE, warnings = FALSE}
 # Load a sample dataset
 fennica_subset <- tail(fennica_subset)
-
 # Enrich authors with Kanto info
 authors_kanto <- finto::get_kanto(fennica_subset)
-head(authors_kanto)
+knitr::kable(head(authors_kanto))
 ```
 
 
 #  Finto AI for Subject Indexing {auto-animate="true"}
 
-``` r
+``` {r message = FALSE, warnings = FALSE}
 # Annotate a short text with YSO concepts
 text <- "climate change and biodiversity loss"
-annif_suggest(text, project = "yso-fi")
+suggest_subjects(text, project = "yso-fi")
 ```
 
-``` r
+#  Finto AI for Subject Indexing {auto-animate="true"}
+
+``` {r message = FALSE, warnings = FALSE}
 hierarchy <- get_hierarchy(vocid = "yso", uri = "http://www.yso.fi/onto/yso/p5729", lang = "en")
 print(hierarchy)
 ```
@@ -207,15 +210,8 @@ print(hierarchy)
 :::
 :::
 
-# {auto-animate="true"}
-::: {.columns}
-::: {.column width="99%"}
-![](images/question2.jpg){width=100%}
-:::
-::: {.column width="1%"} 
+# Questions ?{auto-animate="true"}
 
-:::
-:::
 
 #  {data-background-color="white"}
 ::: {.columns}
