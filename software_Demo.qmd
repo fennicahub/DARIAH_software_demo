@@ -183,7 +183,7 @@ text <- "climate change and biodiversity loss"
 suggest_subjects(text, project = "yso-fi")
 ```
 
-#  Finto AI for Subject Indexing {auto-animate="true"}
+#  Hierarchical context for a specific concept {auto-animate="true"}
 
 ``` {r message = FALSE, warnings = FALSE}
 hierarchy <- get_hierarchy(vocid = "yso", uri = "http://www.yso.fi/onto/yso/p5729", lang = "en")
