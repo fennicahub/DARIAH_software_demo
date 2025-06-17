@@ -5,6 +5,7 @@ on:
     paths:
     - '**.yml'
     - '**.qmd'
+    - '**.png'
   workflow_dispatch:
 permissions: write-all
 

@@ -211,7 +211,14 @@ print(hierarchy)
 :::
 
 # Questions ?{auto-animate="true"}
+::: {.columns}
+::: {.column width="99%"}
+<!-- ![](images/question2.jpg){width=100%} -->
+:::
+::: {.column width="1%"} 
 
+:::
+:::
 
 #  {data-background-color="white"}
 ::: {.columns}
